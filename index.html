@@ -1,0 +1,343 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Message for Megha</title>
+    <style>
+        /* High-end Typography */
+        @import url('https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;500&display=swap');
+
+        :root {
+            --primary-color: #9d4653; /* Elegant Muted Rose */
+            --text-dark: #2d2d2d;
+            --text-light: #6d6d6d;
+            --bg-soft: #fdfaf9;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: var(--bg-soft);
+            font-family: 'Playfair Display', serif;
+            overflow: hidden;
+            text-align: center;
+            color: var(--text-dark);
+        }
+
+        /* --- Intro Overlay --- */
+        #introOverlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .quote-intro {
+            max-width: 85%;
+            font-size: 1.4rem;
+            line-height: 1.8;
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            padding: 0;
+            z-index: 102;
+            text-align: center;
+        }
+
+        .instruction {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #bbb;
+            margin-bottom: 40px;
+            z-index: 102;
+            text-align: center;
+            width: 100%;
+        }
+
+        .blurred-heart {
+            position: fixed;
+            top: -10%;
+            pointer-events: none;
+            z-index: 101;
+            filter: blur(4px);
+            opacity: 0;
+            animation: fall-blur linear forwards;
+        }
+
+        @keyframes fall-blur {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.5; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- Interactive Elements --- */
+        .heart-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 160px; 
+            height: 140px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            clip-path: path('M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z');
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 15px;
+            z-index: 102;
+        }
+
+        #container {
+            background: white;
+            padding: 60px 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid #f0f0f0;
+            z-index: 10;
+            max-width: 85%;
+            transition: all 0.5s ease;
+        }
+
+        h1 {
+            font-weight: 400;
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            min-height: 100px;
+        }
+
+        .game-btn {
+            padding: 12px 25px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            outline: none;
+            display: inline-block;
+        }
+
+        #yesBtn { 
+            background: var(--primary-color); 
+            color: white; 
+            border-radius: 4px;
+            z-index: 50; 
+        }
+
+        #noBtn { 
+            background: transparent; 
+            color: #aaa; 
+            border: 1px solid #ddd; 
+            border-radius: 4px;
+            z-index: 10;
+        }
+
+        /* --- Final Letter Section --- */
+        #finalLetter {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--bg-soft);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .letter-content {
+            max-width: 90%;
+            width: 450px;
+            text-align: left;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            min-height: 200px;
+        }
+
+        .signature {
+            font-family: 'Monsieur La Doulaise', cursive;
+            font-size: 2.8rem; /* Adjusted for longer text */
+            color: var(--primary-color);
+            margin-top: 25px;
+            display: block;
+            opacity: 0;
+            transition: opacity 2s ease;
+            width: 100%;
+            text-align: left;
+            max-width: 450px;
+            line-height: 1.2;
+        }
+
+        .petal { position: fixed; top: -10%; pointer-events: none; z-index: 201; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        .hide { display: none !important; }
+        .fade-in { animation: fadeIn 2s forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .footer { 
+            position: fixed; bottom: 20px; 
+            font-family: 'Poppins', sans-serif;
+            font-size: 9px; letter-spacing: 3px; color: #bbb;
+            text-transform: uppercase;
+            width: 100%;
+            z-index: 5;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="introOverlay">
+        <div class="quote-intro fade-in">
+            "You were the first person I felt both wildly unsure and unwaveringly certain of..."
+        </div>
+        <div class="instruction fade-in">Click the heart below</div>
+        <button class="heart-btn" onclick="revealQuestion()">
+            Enter
+        </button>
+    </div>
+
+    <div id="container" class="hide">
+        <h1>Will you be my Valentine, Madam Ji??</h1>
+        <div class="buttons">
+            <button id="yesBtn" class="game-btn">Yes, I will</button>
+            <button id="noBtn" class="game-btn">No</button>
+        </div>
+    </div>
+
+    <div id="finalLetter" class="hide">
+        <div class="letter-content" id="typewriter"></div>
+        <span id="signature" class="signature">Lots of love from Aman ❤️</span>
+    </div>
+
+    <div class="footer">from Aman to you 2026</div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const text = "Megha,\n\nYou were the first person I felt both wildly unsure and unwaveringly certain of. That was the scariest part about falling for you: the fact that I had no idea what I was doing. But at the same time, I knew exactly why I had to.\n\nYou make everything better just by being in it.\n\nWith love,";
+        
+        let charIndex = 0;
+        let yesScale = 1;
+        let noAttempts = 0;
+
+        const phrases = [
+            "Are you sure?",
+            "Think again, Madam Ji...",
+            "Really? 🌹",
+            "Surely not!",
+            "It's getting bigger...",
+            "Just say yes!",
+            "Resistance is futile ❤️"
+        ];
+
+        function handleNoInteraction() {
+            const x = Math.random() * (window.innerWidth - 150);
+            const y = Math.random() * (window.innerHeight - 100);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+
+            yesScale += 0.45;
+            yesBtn.style.transform = `scale(${yesScale})`;
+
+            if (noAttempts < phrases.length) {
+                noBtn.innerText = phrases[noAttempts];
+                noAttempts++;
+            }
+        }
+
+        noBtn.addEventListener('mouseover', handleNoInteraction);
+        noBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            handleNoInteraction();
+        });
+
+        yesBtn.addEventListener('click', () => {
+            document.getElementById('container').classList.add('hide');
+            document.getElementById('finalLetter').classList.remove('hide');
+            startTypewriter();
+            setInterval(createPetal, 300);
+        });
+
+        function revealQuestion() {
+            clearInterval(introHeartInterval); 
+            document.getElementById('introOverlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('introOverlay').classList.add('hide');
+                document.getElementById('container').classList.remove('hide');
+                document.getElementById('container').classList.add('fade-in');
+            }, 1200);
+        }
+
+        function startTypewriter() {
+            if (charIndex < text.length) {
+                const char = text.charAt(charIndex);
+                document.getElementById("typewriter").innerHTML += (char === '\n') ? '<br>' : char;
+                charIndex++;
+                setTimeout(startTypewriter, Math.floor(Math.random() * 40) + 40);
+            } else {
+                document.getElementById('signature').style.opacity = '1';
+            }
+        }
+
+        function createIntroHeart() {
+            if (!document.getElementById('introOverlay').classList.contains('hide')) {
+                const heart = document.createElement('div');
+                heart.className = 'blurred-heart';
+                const icons = ['❤️', '💖', '💗', '🌸'];
+                heart.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heart.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 7000);
+            }
+        }
+        const introHeartInterval = setInterval(createIntroHeart, 400);
+
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            const icons = ['🌸', '✨', '🤍', '🌹'];
+            petal.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.fontSize = (Math.random() * 10 + 15) + 'px';
+            petal.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            petal.style.opacity = Math.random() * 0.7;
+            document.body.appendChild(petal);
+            setTimeout(() => petal.remove(), 5000);
+        }
+    </script>
+</body>
+</html>
